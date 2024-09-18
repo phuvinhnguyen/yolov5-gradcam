@@ -28,7 +28,7 @@ def get_res_img(bbox, mask, res_img):
     mask = mask.squeeze(0).mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).detach().cpu().numpy().astype(
         np.uint8)
     heatmap = cv2.applyColorMap(mask, cv2.COLORMAP_JET)
-    n_heatmat = (Box.fill_outer_box(heatmap, bbox) / 255).astype(np.float32)
+    n_heatmat = (heatmap / 255).astype(np.float32)
     res_img = res_img / 255
     res_img = cv2.add(res_img, n_heatmat)
     res_img = (res_img / res_img.max())
